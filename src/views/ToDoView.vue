@@ -43,11 +43,13 @@ const deleteTodo = async (id) => {
 };
 
 const todoFilter = computed(() => {
-  return todoStore.todoList.filter(
-    (todo) =>
-      todo.isDone === (selectedStatus.value === "Done" ? true : false) &&
-      todo.name.toLowerCase().includes(searchName.value.toLowerCase())
-  );
+  return todoStore.todoList
+    .filter(
+      (todo) =>
+        todo.isDone === (selectedStatus.value === "Done") &&
+        todo.name.toLowerCase().includes(searchName.value.toLowerCase())
+    )
+    .sort((a, b) => new Date(a.endAt) - new Date(b.endAt));
 });
 
 const changeSelectedStatus = (newStatus) => {
